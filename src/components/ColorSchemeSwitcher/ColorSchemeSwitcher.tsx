@@ -1,21 +1,22 @@
 import { ActionIcon, useMantineColorScheme, createStyles } from "@mantine/core";
 import { IconSun, IconMoon } from "components/icons";
 
-const useStyles = createStyles((_theme, _params, _getRef) => {
-  return {
+const useStyles = createStyles(
+  (_theme, { isDark }: { isDark: boolean }, _getRef) => ({
     wrapper: {
-      // subscribe to color scheme changes right in your styles
       position: "absolute",
-      top: 30,
+      top: isDark ? "auto" : "0",
       right: 30,
     },
-  };
-});
+  })
+);
 
 export const ColorSchemeSwitcher = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const isDark = colorScheme === "dark";
-  const { classes } = useStyles();
+  const { classes } = useStyles({
+    isDark,
+  });
 
   return (
     <ActionIcon
